@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ManagedServer {
+  server_id          String   @id @default(uuid())
+  hostname           String
+  alias              String?
+  group_name         String?
+  ip_address         String   
+  os_release         String
+  total_cores        Int?
+  total_ram_gb       Float?
+  total_disk_gb      Float?
+  last_seen_at       DateTime @default(now())
+  status             String   @default("ONLINE")
+  is_active          Boolean  @default(true) 
+  
+  // NEW: Decoupled scaling parameters (in seconds)
+  heartbeat_interval Int      @default(10)
+  telemetry_interval Int      @default(300) // 300s = 5 minutes
+  
+  telemetry          TelemetryLog[]
+  audit_logs         AuditLog[]             
+
+  @@map("managed_servers")
+}
+
+model TelemetryLog {
+  id               Int      @id @default(autoincrement())
+  server_id        String
+  cpu_usage_pct    Float
+  ram_usage_pct    Float
+  swap_usage_pct   Float
+  storage_root_pct Float
+  top_processes    Json     
+  recorded_at      DateTime @default(now())
+
+  server           ManagedServer @relation(fields: [server_id], references: [server_id], onDelete: Cascade)
+
+  @@map("latest_telemetry")
+}
+
+// NEW: Enterprise Audit Trail
+model AuditLog {
+  id            Int      @id @default(autoincrement())
+  server_id     String
+  action        String   
+  details       String?  
+  performed_by  String   @default("system")
+  timestamp     DateTime @default(now())
+
+  server        ManagedServer @relation(fields: [server_id], references: [server_id], onDelete: Cascade)
+
+  @@map("audit_logs")
+}

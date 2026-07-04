@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  nucleus-db:
+    image: postgres:15-alpine
+    container_name: nucleus-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: nucleus_admin
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: nucleus_rmm
+    ports:
+      - "5432:5432"
+    volumes:
+      - nucleus-pgdata:/var/lib/postgresql/data
+
+volumes:
+  nucleus-pgdata:

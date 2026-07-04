@@ -1,0 +1,14 @@
+◇ injected env (1) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+[*] Nucleus Gateway initializing on port 61033...
+[~] Heavy Telemetry Written: dev-srv
+[~] Heavy Telemetry Written: Adils-MacBook-Air.local
+[~] Heavy Telemetry Written: dev-srv
+[~] Heavy Telemetry Written: Adils-MacBook-Air.local
+[~] Heavy Telemetry Written: dev-srv
+[!] Watchdog: Marked 1 nodes OFFLINE.
+[~] Heavy Telemetry Written: Adils-MacBook-Air.local
+[~] Heavy Telemetry Written: Adils-MacBook-Air.local
+[~] Heavy Telemetry Written: Adils-MacBook-Air.local
+[!] Watchdog: Marked 1 nodes OFFLINE.
+[~] Heavy Telemetry Written: Adils-MacBook-Air.local
+[!] Watchdog: Marked 1 nodes OFFLINE.
